@@ -6,7 +6,7 @@ app.set('view engine', 'ejs');
 app.set('views', './');
 
 app.get('/init', function(req, res) {
-    axios.post('http://localhost:3000/hi', { list: ['server2'] })
+    axios.post('http://10.4.17.163:3000/hi', { list: ['server2'] })
         .then(response => {
             res.render('index', { title: 'Express' });
         })
