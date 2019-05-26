@@ -3,7 +3,7 @@ var app = express()
 var axios = require('axios');
 var leadearElection = true;
 var isLeader = false;
-var idServer = 7;
+var idServer = 5;
 var leaderId = 0;
 
 bodyParser = require('body-parser');
@@ -14,7 +14,7 @@ app.set('views', './');
 
 
 app.get('/init', function(req, res) {
-    axios.post('http://localhost:3032/hi', { id: ['server2'] })
+    axios.post('http://localhost:3030/hi', { list: ['server2'] })
         .then(response => {
             res.render('index', { title: 'Express' });
         })
@@ -40,9 +40,8 @@ app.post('/selectLeader', function(req, res) {
         } else if (req.body.id < idServer) {
             leaderId =idServer;
             sendId(idServer, res);
-        } else {
+        } else {;
             isLeader = true;
-            console.log("Lider");
         }
     } else {
         sendId(req.body.id, res);
@@ -50,7 +49,8 @@ app.post('/selectLeader', function(req, res) {
 });
 
 function sendId(idServ, res) {
-    axios.post('http://localhost:3032/selectLeader', {id: idServ})
+    console.log("Enviar " + idServ);
+    axios.post('http://localhost:3030/selectLeader', {id: idServ})
         .then(response => {
             console.log('Election in progress');
         })
@@ -61,7 +61,7 @@ function sendId(idServ, res) {
 
 app.get('/forefitFromLeader', function(req, res) {
     leadearElection=false;
-    axios.post('http://localhost:3032/selectLeader', {id: 0})
+    axios.post('http://localhost:3030/selectLeader', {list: 0})
         .then(response => {
             console.log('Election in progress');
         })
@@ -71,4 +71,4 @@ app.get('/forefitFromLeader', function(req, res) {
 });
 
 
-app.listen(3031, () => console.log(`Example app listening on port $3031!`))
+app.listen(3032, () => console.log(`Example app listening on port $3032!`))
