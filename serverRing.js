@@ -11,11 +11,11 @@ bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 app.set('view engine', 'ejs');
-app.set('views', './');
+app.set('views', __dirname + '/pages');
 
 //TODO
 
-app.use(morgan('dev'));
+app.use(morgan('short'));
 
 /*
 app.use(function (req, res, next) {
@@ -27,6 +27,7 @@ app.use(function (req, res, next) {
 */
 
 app.get('/init', function(req, res) {
+    /*
     axios({
             method: 'POST',
             url: 'http://localhost:3031/hi',
@@ -34,12 +35,14 @@ app.get('/init', function(req, res) {
                 foo: 'bar', // This is the body part
             }
         }).then(response => {
-            res.render('index');
+            res.render('index.ejs');
         })
         .catch(error => {
             console.log(error);
             res.send('error');
         });
+    */
+   res.render('index');
 });
 
 app.post('/selectLeader', function(req, res) {
