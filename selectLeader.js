@@ -1,10 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
+
 var leadearElection = true;
 var isLeader = true;
 var idServer = 9;
 var leaderId = 0;
+
+var ip = "http://localhost:3031"
 
 router.post('/selectLeader', function(req, res) {
     console.log(req.body.id);
@@ -24,7 +27,7 @@ router.post('/selectLeader', function(req, res) {
 });
 
 function sendId(idServ, res) {
-    axios.post('http://localhost:3031/selectLeader', {id: idServ})
+    axios.post(ip + '/selectLeader', {id: idServ})
         .then(response => {
             console.log('Election in progress');
         })
@@ -35,7 +38,7 @@ function sendId(idServ, res) {
 
 router.get('/forefitFromLeader', function(req, res) { //isLeader to false - leaderElection to false
     leadearElection=false;
-    axios.post('http://localhost:3031/selectLeader', {id: 0})
+    axios.post(ip + '/selectLeader', {id: 0})
         .then(response => {
             console.log('Election in progress');
         })
